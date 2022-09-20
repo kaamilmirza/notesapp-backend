@@ -1,0 +1,24 @@
+{
+    "g_id" : {
+        "type" : "string"
+    },
+    "name" : {
+        "type" : "string"
+    },
+    "year" : {
+        "type" : "number",
+        "options" : [1,2,3,4]
+    },
+    "branch" :{
+        "type" : "string",
+        "options" : ["CSE","ECE","EEE","MECH","CIVIL","IT","MBA","MCA","CSIT","AIML","CS-DS","CSC"]
+    },
+    "course" : {
+        "type" : "string",
+        "options" : []
+    },
+    "wdlink" : {
+        "type" : "string"
+    }
+    }
+    
