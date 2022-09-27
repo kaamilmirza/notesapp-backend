@@ -10,9 +10,9 @@ app.use(cors());
 
 // Connect MongoDb
 const database = process.env.MONGOLAB_URI;
-// mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
-// .then(() => console.log('e don connect'))
-// .catch(err => console.log(err));
+mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
+.then(() => console.log('e don connect'))
+.catch(err => console.log(err));
 // // Check connection is established
 // const connection = mongoose.connection;
 // connection.once('open', () => {
