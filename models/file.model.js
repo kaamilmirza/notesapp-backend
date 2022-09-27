@@ -5,8 +5,14 @@ const file_scheme = new mongoose.Schema({
         type: String,
         trim: true,
       },
-    year: Number,
-    branch: String,
+    year: {
+      type : Number,
+      enum : ['1','2','3','4'],
+    } ,
+    branch: {
+      type : String,
+      enum : ["CSE","ECE","EEE","MECH","CIVIL","IT","MBA","MCA","CSIT","AIML","CS-DS","CSC"],
+    },
     course: String,
     semester: Number,
     version: Number,
