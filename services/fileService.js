@@ -1,4 +1,5 @@
-const File = require('..//models/file.model.js');
+
+const File = require('../models/file.model/');
 
 module.exports = class FileService{
     static async apiCreateFile(body, res, next) {
