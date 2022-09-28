@@ -1,8 +1,8 @@
 
-const File = require('../models/file.model/');
+const File = require('../models/file.model.js');
 
 module.exports = class FileService{
-    static async apiCreateFile(body, res, next) {
+    static async apiCreateFile(body) {
         let fileDoc = await File.create({
             g_id: body.g_id,
             name: body.name,
@@ -16,4 +16,18 @@ module.exports = class FileService{
         });
         console.log(fileDoc);
     }
+    static async updateFile(bodyData, fileID) {
+        const fileData = await File.findByIdAndUpdate(fileID,{
+            g_id: bodyData.g_id,
+            name: bodyData.name,
+            year: bodyData.year,
+            branch: bodyData.branch,
+            course: bodyData.course,
+            semester: bodyData.semester,
+            version: bodyData.version,
+            unit: bodyData.unit,
+            wdlink: bodyData.wdlink,
+        });
+        }
+
 }
