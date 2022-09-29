@@ -21,6 +21,21 @@ exports.createFile = async function (req, res) {
         version,
         unit,
         wdlink);
+    
+    const newfile = await new File({
+        g_id: g_id,
+        name: name,
+        year: year,
+        branch: branch,
+        course: course,
+        semester: semester,
+        version: version,
+        unit: unit,
+        wdlink: wdlink,
+    }).save();
 
-    }catch (e) {}
+    res.send(newfile);
+     }
+    catch (error) {}
+
 };

@@ -1,9 +1,10 @@
 const File = require('../../models/file.model');
 const FileService = require('../../services/fileService');
 module.exports = class fileController {
+    //function to creae a new file 
     static async apiCreateFile(req, res, next) {
         try {
-            const file = await FileService.apiCreateFile(req.body);
+            const file = await FileService.createFile(req.body);
             res.json(file);
         } catch (e) {
             res.status(500).json(e);
