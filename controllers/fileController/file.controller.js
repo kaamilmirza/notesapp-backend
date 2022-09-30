@@ -1,7 +1,7 @@
 const File = require('../../models/file.model');
 const FileService = require('../../services/fileService');
 module.exports = class fileController {
-    //function to creae a new file 
+    //function to create a new file 
     static async apiCreateFile(req, res, next) {
         try {
             const file = await FileService.createFile(req.body);
@@ -11,16 +11,17 @@ module.exports = class fileController {
         }
         //res.send.json(req.body);
     }
-
+    //function api to update a file if it already exits
     static async apiUpdateFile(req, res, next) {
         const fileData = await FileService.updateFile(req.body);
         try{
             if(fileData){
-            res.send({
-                message : "File updated successfully",
-                statusCode: 200,
-                data: fileData
-            });
+            // res.send({
+            //     message : "File updated successfully",
+            //     statusCode: 200,
+            //     data: fileData
+            // });
+            res.json(fileData);
         }
         else{
             res.status(400).send({msg : "File not updated"});
