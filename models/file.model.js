@@ -20,5 +20,5 @@ const file_schema = mongoose.Schema({
     wdlink: String,
 });
 
-const File = mongoose.model('File', file_schema);
+const File = mongoose.model('files', file_schema);
 module.exports = File;

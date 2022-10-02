@@ -21,13 +21,20 @@ module.exports = class FileService{
             });
             return newFileDoc;
         }
+        else{
+            this.updateFile(body);
+        }
+        
     }
     static async updateFile(body) {
-        let fileDoc = await File.findOne({
+        // console.log("Reached update file..service")
+        // console.log(body);
+        const fileDoc = await File.findOne({
             g_id: body.g_id,
-            
-        });
+            });
         if (fileDoc) {
+            // console.log("File found");
+            // console.log(fileDoc);
             fileDoc.name = body.name;
             fileDoc.year = body.year;
             fileDoc.branch = body.branch;
@@ -36,12 +43,13 @@ module.exports = class FileService{
             fileDoc.version = body.version;
             fileDoc.unit = body.unit;
             fileDoc.wdlink = body.wdlink;
-            await fileDoc.save();
-            return fileDoc;
+            // console.log("File updated");
+            // console.log(fileDoc);
+            const updatedFile = await fileDoc.save();
+            return updatedFile;
         }
-        console.log(fileDoc);
-
+        else{
+            return null;
+        }  
     }
-
-
 }

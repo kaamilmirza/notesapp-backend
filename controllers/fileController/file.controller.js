@@ -12,9 +12,12 @@ module.exports = class fileController {
         //res.send.json(req.body);
     }
     //function api to update a file if it already exits
+    //calls the updateFile function from fileService
     static async apiUpdateFile(req, res, next) {
-        const fileData = await FileService.updateFile(req.body);
         try{
+            // console.log("req");
+            // console.log(req.body);
+            const fileData = await FileService.updateFile(req.body);
             if(fileData){
             // res.send({
             //     message : "File updated successfully",
