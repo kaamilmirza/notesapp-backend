@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 // Connect MongoDb
+console.log(process.env.MONGOLAB_URI);
 const database = process.env.MONGOLAB_URI;
 mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
 .then(() => console.log('e don connect'))
