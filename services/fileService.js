@@ -31,19 +31,7 @@ module.exports = class FileService{
             console.error(`Unable to issue find command, ${e}`)
             return { file_list: [], total_num_files: 0 }
         }
-        const displayCursor = cursor
-            .skip(filesPerPage * page)
-            .limit(filesPerPage);
-        try {
-            const file_list = await displayCursor.toArray();
-            const total_num_files = await File.countDocuments(query);
-            return { file_list, total_num_files };
-        } catch (e) {
-            console.error(
-                `Unable to convert cursor to array or problem counting documents, ${e}`
-            )
-            return { file_list: [], total_num_files: 0 }
-        }
+        
     }
         if (filters) {
             if ("name" in filters) {
