@@ -1,7 +1,7 @@
 const express = require('express');             // Import expressjs
 const mongoose = require('mongoose');           // Import mongoose
 const cors = require('cors');                   // Import cors
-const files = require('./routes/files');
+const routes = require('./routes/routes');
 require('dotenv').config();                     // Import dotenv
 const port = process.env.PORT || 3000;
 const app = express();                       // Create expressjs object
@@ -22,7 +22,7 @@ mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
 // middleware
 // app.use('/uploads', express.static('uploads'));   // Make uploads folder to make it accessible from browser
 
-app.use('/',files); // For Json Data
+app.use(routes); // router file for all routes
 // User Route
 // const userRoute = require('./routes/user');
 // app.use('/add', userRoute);
