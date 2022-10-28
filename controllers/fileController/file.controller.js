@@ -18,8 +18,7 @@ module.exports = class fileController {
             res.json(files);
         }
         catch(e){
-            res.status(500).json(e);
-
+            res.status(500).json(e);  
         }
     }
     //controller to update file if it already exists using functions in the services 

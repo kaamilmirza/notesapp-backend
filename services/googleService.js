@@ -41,17 +41,26 @@ static uploadSingleFile = async (getDriveService,fileName,filePath) => {
       },
       fields: 'id,name',
     });
-    console.log('File Uploaded', name, id);
+    console.log('File Uploaded', name);
     return id;
   };
   
   static scanFolderForFiles = async (driveService, filename, folderPath) => {
-    const folder = await fs.promises.opendir(folderPath);
-      if (filename.endsWith('.pdf')) {
-        await this.uploadSingleFile(driveService, filename, folderPath);
-        await fs.promises.rm(filePath);
-      }
+    const drive = driveService
     
+    var fileId = null;
+      if (filename.endsWith('.pdf')) {
+        fileId = await this.uploadSingleFile(driveService, filename, folderPath)
+      }
+      const wcl = await drive.files.get({
+        fileId: fileId,
+        fields: 'webViewLink, webContentLink',
+      });
+      const result = {
+        fileId : fileId,
+        webContentLink : wcl["data"]["webViewLink"]
+      }
+      return result;
   };
 
 }
