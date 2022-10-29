@@ -4,9 +4,7 @@ module.exports = class googleController {
     static async apiGdrive(req, res, next){
         try{
             const driveService = await googleService.getDriveService();
-            const fileId = await googleService.scanFolderForFiles(driveService,"Hallticket.pdf","D:/Programminglearning/notesapp-backend/test/");
-            console.log("FileId");
-            console.log(fileId);
+            const fileId = await googleService.scanFolderForFiles(driveService,req.body.filename,req.body.filepath);
             res.json(fileId);
         }   
         catch(error){

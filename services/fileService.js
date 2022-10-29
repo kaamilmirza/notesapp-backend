@@ -13,7 +13,6 @@ module.exports = class FileService{
             console.log(e);
             return null;
         }
-        
     }
     //to create a file with generated g_id and things given in paramenter
     static async createFile(body) {

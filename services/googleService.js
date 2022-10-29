@@ -13,7 +13,6 @@ module.exports = class GoogleService {
 static async getDriveService() {
   const KEYFILEPATH = 'D:/Programminglearning/notesapp-backend/notesapp-364320-a9fd54b361bf.json';
   const SCOPES = ['https://www.googleapis.com/auth/drive'];
-
   const auth = new google.auth.GoogleAuth({
     keyFile: KEYFILEPATH,
     scopes: SCOPES,
@@ -41,28 +40,31 @@ static uploadSingleFile = async (getDriveService,fileName,filePath) => {
       },
       fields: 'id,name',
     });
-    console.log('File Uploaded', name);
+    // console.log('File Uploaded', name);
     return id;
   };
   
   static scanFolderForFiles = async (driveService, filename, folderPath) => {
-    const drive = driveService
-    
+    const drive = driveService;
     var fileId = null;
       if (filename.endsWith('.pdf')) {
-        fileId = await this.uploadSingleFile(driveService, filename, folderPath)
+        try{
+          fileId = await this.uploadSingleFile(driveService, filename, folderPath);
+        }
+        catch(error){
+          console.log(error);
+        }
       }
       const wcl = await drive.files.get({
-        fileId: fileId,
-        fields: 'webViewLink, webContentLink',
-      });
+          fileId: fileId,
+          fields: 'webViewLink, webContentLink',
+        });
       const result = {
         fileId : fileId,
         webContentLink : wcl["data"]["webViewLink"]
       }
       return result;
   };
-
 }
 
 
