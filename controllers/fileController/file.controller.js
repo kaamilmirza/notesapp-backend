@@ -28,11 +28,6 @@ module.exports = class fileController {
             // console.log(req.body);
             const fileData = await FileService.updateFile(req.body);
             if(fileData){
-            // res.send({
-            //     message : "File updated successfully",
-            //     statusCode: 200,
-            //     data: fileData
-            // });
             res.json(fileData);
         }
         else{
