@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 const app = express();                       // Create expressjs object
 app.use(express.json());  
 app.use(cors());
+const jwt = require("jsonwebtoken");
 
 // Connect MongoDb
 console.log(process.env.MONGOLAB_URI);
