@@ -18,7 +18,7 @@ mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
 
 app.use(routes); // router file for all routes
 
-app.route('/').get(cors(),(req, res) => res.json('Hello World!'));
+// app.route('/').get(cors(),(req, res) => res.json('Hello World!'));
 
 // Added 0.0.0.0 to run server from local ip address
 app.listen(port, '0.0.0.0', () => console.log(`Your server is running on port ${port}`));

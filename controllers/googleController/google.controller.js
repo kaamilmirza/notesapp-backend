@@ -1,4 +1,4 @@
-const googleService = require('../../services/googleService');
+const googleService = require('../../services/google.service');
 
 module.exports = class googleController {
     static async apiGdrive(req, res, next){

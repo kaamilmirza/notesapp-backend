@@ -1,5 +1,5 @@
 const File = require('../../models/file.model');
-const FileService = require('../../services/fileService');
+const FileService = require('../../services/file.service');
 module.exports = class fileController {
      //controller to call on the function that creates file
      static async apiCreateFile(req, res, next) {
