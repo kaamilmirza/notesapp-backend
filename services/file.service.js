@@ -1,5 +1,8 @@
+const { default: mongoose } = require('mongoose');
 const { find } = require('../models/file.model.js');
 const File = require('../models/file.model.js');
+const FileJson = require('../models/courses.model.js');
+
 //  searches for the file in the db and creates new if doesnt exist 
 // updates the file if it already exists
 module.exports = class FileService{
@@ -7,6 +10,16 @@ module.exports = class FileService{
     static async getFileList(body) {
         try{
             const files = await File.find();
+            return files;
+        }
+        catch(e){
+            console.log(e);
+            return null;
+        }
+    }
+    static async getJsonFileList(body) {
+        try{
+            const files = await FileJson.find();
             return files;
         }
         catch(e){
@@ -65,4 +78,40 @@ module.exports = class FileService{
             return null;
         }  
     }
+    static async createFileJson(body){
+        let fileDoc = await FileJson.findOne({
+            g_id: body.g_id,
+        });
+        if (!fileDoc) {
+            const newFileDoc = await FileJson.create({
+                g_id: body.g_id,
+                name: body.name,
+                course: body.course,
+            });
+            return newFileDoc;
+        }
+        else{
+            this.updateFile(body);
+        }
+    }
+    static async updateFileJson(body){
+        const fileDoc = await FileJson.findOne({
+            g_id: body.g_id,
+            });
+        
+        if (fileDoc) {
+            // console.log("File found");
+            // console.log(fileDoc);
+            fileDoc.name = body.name;
+            fileDoc.course = body.course;
+            // console.log("File updated");
+            // console.log(fileDoc);
+            const updatedFile = await fileDoc.save();
+            return updatedFile;
+        }
+        else{
+            return null;
+        }  
+    }
+    static async 
 }
