@@ -1,14 +1,11 @@
 const mongoose = require('mongoose');
 const file_schema = mongoose.Schema({
-    _id  : {type:String , required : true},
-    g_id: {type: String, required: true},
-    name: {
+    cid  : {type: Number , required : true},
+    cname: {
         type: String,
-        trim: true,
       },
-    course: String,
-
+      g_id: {type: Array},
 });
 
-const File = mongoose.model('files_json', file_schema);
+const File = mongoose.model('files_jsons', file_schema);
 module.exports = File;

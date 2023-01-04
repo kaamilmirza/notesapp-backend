@@ -80,19 +80,24 @@ module.exports = class FileService{
     }
     static async createFileJson(body){
         let fileDoc = await FileJson.findOne({
-            g_id: body.g_id,
+            cname: body.course
         });
         if (!fileDoc) {
             const newFileDoc = await FileJson.create({
-                _id : body._id,
-                g_id: body.g_id,
-                name: body.name,
-                course: body.course,
+                cid : (1000 + Math.random() * 9000).toFixed(0),
+                cname: body.course,
+                gid : [body.g_id],
             });
             return newFileDoc;
         }
         else{
-            this.updateFile(body);
+            updated = fileDoc.updateOne({
+                "cname" : body.course
+            }, 
+            {
+                $push : { gid : body.g_id}
+            });
+            return updated;
         }
     }
     static async updateFileJson(body){
