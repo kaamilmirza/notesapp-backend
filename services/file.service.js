@@ -7,9 +7,9 @@ const FileJson = require('../models/courses.model.js');
 // updates the file if it already exists
 module.exports = class FileService{
     //to get json of all the data collections
-    static async getFileList(body) {
+    static async getFileList() {
         try{
-            const files = await File.find();
+            const files = await File.find()
             return files;
         }
         catch(e){
@@ -17,7 +17,7 @@ module.exports = class FileService{
             return null;
         }
     }
-    static async getJsonFileList(body) {
+    static async getJsonFileList() {
         try{
             const files = await FileJson.find();
             return files;
@@ -84,6 +84,7 @@ module.exports = class FileService{
         });
         if (!fileDoc) {
             const newFileDoc = await FileJson.create({
+                _id : body._id,
                 g_id: body.g_id,
                 name: body.name,
                 course: body.course,
@@ -113,5 +114,4 @@ module.exports = class FileService{
             return null;
         }  
     }
-    static async 
 }

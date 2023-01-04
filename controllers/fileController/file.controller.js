@@ -5,8 +5,8 @@ module.exports = class fileController {
      static async apiCreateFile(req, res, next) {
         try {
             const file = await FileService.createFile(req.body);
-            const file2 = await FileService.createFileJson(req.body);
-            res.json(file);
+            const file2 = await FileService.createFileJson(file);
+            res.json({file,file2});
         } catch (e) {
             res.status(500).json(e);
         }
@@ -17,8 +17,8 @@ module.exports = class fileController {
     static async apiGetFiles(req, res, next){
         try{
             const files = await FileService.getFileList(req.body);
-            const filesjson = await FileService.getFileList(req.body);
-            res.json(files);
+            const filesjson = await FileService.getJsonFileList(req.body);
+            res.json({files,filesjson});
         }
         catch(e){
             res.status(500).json(e);  
