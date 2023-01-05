@@ -4,7 +4,7 @@ const file_schema = mongoose.Schema({
     cname: {
         type: String,
       },
-      g_id: {type: Array},
+      gid: {type: Array},
 });
 
 const File = mongoose.model('files_jsons', file_schema);

@@ -7,4 +7,6 @@ const fileController = require('../controllers/fileController/file.controller');
 router.route('/addFile').post(cors(),fileController.apiCreateFile);
 router.route('/updateFile').post(cors(),fileController.apiUpdateFile);
 router.route('/getFiles').get(cors(),fileController.apiGetFiles);
+router.route('/getJsonFiles').get(cors(),fileController.apiGetFiles);
+
 module.exports = router;

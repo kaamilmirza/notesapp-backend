@@ -17,8 +17,17 @@ module.exports = class fileController {
     static async apiGetFiles(req, res, next){
         try{
             const files = await FileService.getFileList(req.body);
+            res.json({files});
+        }
+        catch(e){
+            res.status(500).json(e);  
+        }
+    }
+    //controller to call the function that gets all courses json files
+    static async apiGetFiles(req, res, next){
+        try{
             const filesjson = await FileService.getJsonFileList(req.body);
-            res.json({files,filesjson});
+            res.json({filesjson});
         }
         catch(e){
             res.status(500).json(e);  

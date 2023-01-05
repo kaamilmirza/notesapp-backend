@@ -2,6 +2,7 @@ const { default: mongoose } = require('mongoose');
 const { find } = require('../models/file.model.js');
 const File = require('../models/file.model.js');
 const FileJson = require('../models/courses.model.js');
+const { file } = require('googleapis/build/src/apis/file/index.js');
 
 //  searches for the file in the db and creates new if doesnt exist 
 // updates the file if it already exists
@@ -73,12 +74,10 @@ module.exports = class FileService{
             // console.log(fileDoc);
             const updatedFile = await fileDoc.save();
             return updatedFile;
-        }
-        else{
-            return null;
-        }  
+        } 
     }
     static async createFileJson(body){
+        
         let fileDoc = await FileJson.findOne({
             cname: body.course
         });
@@ -91,12 +90,14 @@ module.exports = class FileService{
             return newFileDoc;
         }
         else{
-            updated = fileDoc.updateOne({
-                "cname" : body.course
-            }, 
-            {
-                $push : { gid : body.g_id}
-            });
+           updated = FileJson.updateOne({cname : body.course},
+            { $push : { gid : body.g_id.toString()} }, (error) => {
+                if(error){
+                    console.log(error);
+                    return;
+                    }
+                }
+            );
             return updated;
         }
     }
