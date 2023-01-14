@@ -1,32 +1,18 @@
-require('dotenv').config();                     // Import dotenv
-const jwt = require('jsonwebtoken');
+require("dotenv").config(); // Import dotenv
+const jwt = require("jsonwebtoken");
 module.exports = class JWTauth {
-    static async generateTokens(req,res,next){
-        let jwtSecretKey = process.env.JWT_SECRET_KEY;
-        let data = {
-            request : req
+  static async authenticateJWT(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (authHeader) {
+      const token = authHeader.split(" ")[1];
+      jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) {
+          return res.sendStatus(401);
         }
-        const token = jwt.sign(data,jwtSecretKey);
-        res.send(token);
+        next();
+      });
+    } else {
+      res.sendStatus(401);
     }
-    static async validateToken(req,res,next){
-        let tokenHeaderKey = process.env.TOKEN_HEADER_KEY;
-        let jwtSecretKey = process.env.JWT_SECRET_KEY;
-        
-        try{
-            const token = req.header(tokenHeaderKey);
-
-            const verified = jwt.verify(token,jwtSecretKey);
-            if(verified){
-                return res.send("Verified");
-            }
-            else{
-                return res.status(401).send(error);
-            }
-        }
-        catch(error){
-            return res.status(401).send(error);
-        }
-    };
-    
-}
+  }
+};
