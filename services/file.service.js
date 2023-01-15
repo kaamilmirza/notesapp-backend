@@ -1,5 +1,5 @@
 const { default: mongoose } = require('mongoose');
-const { find } = require('../models/file.model.js');
+const { find, update } = require('../models/file.model.js');
 const File = require('../models/file.model.js');
 const FileJson = require('../models/courses.model.js');
 const { file } = require('googleapis/build/src/apis/file/index.js');
@@ -48,7 +48,7 @@ module.exports = class FileService{
             return newFileDoc;
         }
         else{
-            this.updateFile(body);
+             this.updateFile(body);
         }
     }
     //to update file if it already exists after finding the file
@@ -57,10 +57,8 @@ module.exports = class FileService{
         // console.log(body);
         const fileDoc = await File.findOne({
             g_id: body.g_id,
-            });
-        
+            });        
         if (fileDoc) {
-            // console.log("File found");
             // console.log(fileDoc);
             fileDoc.name = body.name;
             fileDoc.year = body.year;
@@ -74,10 +72,10 @@ module.exports = class FileService{
             // console.log(fileDoc);
             const updatedFile = await fileDoc.save();
             return updatedFile;
-        } 
+        }
+        
     }
     static async createFileJson(body){
-        
         let fileDoc = await FileJson.findOne({
             cname: body.course
         });
@@ -90,7 +88,7 @@ module.exports = class FileService{
             return newFileDoc;
         }
         else{
-           updated = FileJson.updateOne({cname : body.course},
+           let updated = await FileJson.updateOne({cname : body.course},
             { $push : { gid : body.g_id.toString()} }, (error) => {
                 if(error){
                     console.log(error);
@@ -100,24 +98,5 @@ module.exports = class FileService{
             );
             return updated;
         }
-    }
-    static async updateFileJson(body){
-        const fileDoc = await FileJson.findOne({
-            g_id: body.g_id,
-            });
-        
-        if (fileDoc) {
-            // console.log("File found");
-            // console.log(fileDoc);
-            fileDoc.name = body.name;
-            fileDoc.course = body.course;
-            // console.log("File updated");
-            // console.log(fileDoc);
-            const updatedFile = await fileDoc.save();
-            return updatedFile;
-        }
-        else{
-            return null;
-        }  
     }
 }

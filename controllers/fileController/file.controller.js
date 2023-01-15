@@ -8,11 +8,11 @@ module.exports = class fileController {
             const file2 = await FileService.createFileJson(file);
             res.json({file,file2});
         } catch (e) {
+            console.log(e);
             res.status(500).json(e);
         }
-        //res.send.json(req.body);
-    }
-   
+        
+    } 
     //controller to call the function that gets all files from collection as json
     static async apiGetFiles(req, res, next){
         try{
