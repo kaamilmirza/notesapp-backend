@@ -11,7 +11,7 @@ const { file } = require('googleapis/build/src/apis/file');
 // If modifying these scopes, delete token.json.
 module.exports = class GoogleService {
 static async getDriveService() {
-  const KEYFILEPATH = 'D:/Programminglearning/notesapp-backend/notesapp-364320-a9fd54b361bf.json';
+  const KEYFILEPATH = "./../notesapp-364320-a9fd54b361bf.json";
   const SCOPES = ['https://www.googleapis.com/auth/drive'];
   const auth = new google.auth.GoogleAuth({
     keyFile: KEYFILEPATH,
