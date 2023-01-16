@@ -5,13 +5,14 @@ const {authenticate} = require('@google-cloud/local-auth');
 const {google} = require('googleapis');
 const multer = require('multer');
 
-const upload = multer();
+
 const constants = require('../constants/googleDriveApi');
 const { file } = require('googleapis/build/src/apis/file');
+const { Stream } = require('stream');
 // If modifying these scopes, delete token.json.
 module.exports = class GoogleService {
 static async getDriveService() {
-  const KEYFILEPATH = "./../notesapp-364320-a9fd54b361bf.json";
+  const KEYFILEPATH = "./notesapp-364320-a9fd54b361bf.json";
   const SCOPES = ['https://www.googleapis.com/auth/drive'];
   const auth = new google.auth.GoogleAuth({
     keyFile: KEYFILEPATH,
@@ -24,11 +25,11 @@ static uploadSingleFile = async (getDriveService,fileName,filePath) => {
     const drive = getDriveService;
     const fName = fileName;
     const fPath = filePath;
-    
     //folderId is the id of the folder inside of the gdrive
     const folderId = '1VZ5shZrzacC4eDTo03C6Z1Wb0PLrARSg';
     const readStream = fs.createReadStream(path.join(fPath,fName));
-
+    const bufferStream = new Stream.PassThrough();
+    bufferStream.end(readStream.buffer);
     const { data: { id, name } = {} } = await drive.files.create({
       resource: {
         name: fName,
