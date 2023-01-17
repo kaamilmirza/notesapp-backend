@@ -3,9 +3,6 @@ const path = require('path');
 const process = require('process');
 const {authenticate} = require('@google-cloud/local-auth');
 const {google} = require('googleapis');
-const multer = require('multer');
-
-
 const constants = require('../constants/googleDriveApi');
 const { file } = require('googleapis/build/src/apis/file');
 const { Stream } = require('stream');
