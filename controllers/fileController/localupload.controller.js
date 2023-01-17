@@ -6,8 +6,7 @@ module.exports = class localUploadController {
     static async apiLocalUpload(req, res, next){
         try{
             //Controller to run google services present under /services/google.service.js
-            const upload = await localUpload.upload(req,res,next);
-            res.send("Success");
+            const upload = await localUpload.uploadAPI(req,res);
         }   
         catch(error){
             console.log(error);

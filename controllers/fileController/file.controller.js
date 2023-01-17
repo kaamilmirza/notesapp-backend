@@ -16,7 +16,7 @@ module.exports = class fileController {
     //controller to call the function that gets all files from collection as json
     static async apiGetFiles(req, res, next){
         try{
-            const files = await FileService.getFileList(req.body);
+            const files = await FileService.getFileList();
             res.json({files});
         }
         catch(e){
