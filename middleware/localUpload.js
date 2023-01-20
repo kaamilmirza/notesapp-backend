@@ -8,7 +8,7 @@ module.exports = class localUpload {
     static async uploadAPI(req,res){
       const storage = multer.diskStorage({
         destination: function (req, file, cb) {
-            cb(null, 'D:/Programminglearning/notesapp-backend/pdfStorage');
+            cb(null, './pdfStorage');
         },
         filename: function (req, file, cb) {
             cb(null, Date.now() + '-' + file.originalname);
