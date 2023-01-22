@@ -18,18 +18,18 @@ static async getDriveService() {
   const driveService = google.drive({ version: 'v3', auth });
   return driveService;
 };
-static uploadSingleFile = async (getDriveService,fileName,filePath) => {
+static uploadSingleFile = async (getDriveService,file,filePath) => {
     const drive = getDriveService;
-    const fName = fileName;
+    const fName = file;
     const fPath = filePath;
     //folderId is the id of the folder inside of the gdrive
     const folderId = '1VZ5shZrzacC4eDTo03C6Z1Wb0PLrARSg';
-    const readStream = fs.createReadStream(path.join(fPath,fName));
+    const readStream = fs.createReadStream(path.join(fPath,file));
     const bufferStream = new Stream.PassThrough();
     bufferStream.end(readStream.buffer);
     const { data: { id, name } = {} } = await drive.files.create({
       resource: {
-        name: fName,
+        name: fName + Date.now(),
         parents: [folderId],
       },
       media: {
@@ -38,21 +38,24 @@ static uploadSingleFile = async (getDriveService,fileName,filePath) => {
       },
       fields: 'id,name',
     });
-    // console.log('File Uploaded', name);
     return id;
   };
   
   static scanFolderForFiles = async (driveService, filename, folderPath) => {
     const drive = driveService;
     var fileId = null;
-      if (filename.endsWith('.pdf')) {
-        try{
-          fileId = await this.uploadSingleFile(driveService, filename, folderPath);
-        }
+      try{
+          //fileId = await this.uploadSingleFile(driveService, filename, folderPath);
+          fs.readdirSync(folderPath).forEach(file => {
+            if(file.endsWith(".pdf")){
+            fileId = this.uploadSingleFile(driveService, file, folderPath);
+            }
+        });
+      }
         catch(error){
           console.log(error);
         }
-      }
+      
       const wcl = await drive.files.get({
           fileId: fileId,
           fields: 'webViewLink, webContentLink',
