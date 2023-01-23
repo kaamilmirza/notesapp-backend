@@ -29,7 +29,7 @@ static uploadSingleFile = async (getDriveService,file,filePath) => {
     bufferStream.end(readStream.buffer);
     const { data: { id, name } = {} } = await drive.files.create({
       resource: {
-        name: fName + Date.now(),
+        name: fName,
         parents: [folderId],
       },
       media: {
@@ -41,16 +41,16 @@ static uploadSingleFile = async (getDriveService,file,filePath) => {
     return id;
   };
   
-  static scanFolderForFiles = async (driveService, filename, folderPath) => {
+  static scanFolderForFiles = async (driveService, file, folderPath) => {
     const drive = driveService;
     var fileId = null;
+    if(file.endsWith(".pdf"))
       try{
-          //fileId = await this.uploadSingleFile(driveService, filename, folderPath);
-          fs.readdirSync(folderPath).forEach(file => {
-            if(file.endsWith(".pdf")){
-            fileId = this.uploadSingleFile(driveService, file, folderPath);
-            }
-        });
+          fileId = await this.uploadSingleFile(driveService, file, folderPath);
+        //     if(file.endsWith(".pdf")){
+        //     fileId = this.uploadSingleFile(driveService, file, folderPath);
+            
+        // };
       }
         catch(error){
           console.log(error);
