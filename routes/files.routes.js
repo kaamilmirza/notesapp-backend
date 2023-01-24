@@ -6,7 +6,7 @@ const googleController = require('../controllers/googleController/google.control
 const fileController = require('../controllers/fileController/file.controller');
 const localUpload = require ('../middleware/localUpload');
 const localUploadController = require('../controllers/fileController/localupload.controller');
-const uploadSingle = require('../middleware/test');
+const uploadSingle = require('../middleware/localUpload');
 const upload = require('../middleware/localUpload');
 //routes relating to the file
 router.route('/addFile').post(cors(),fileController.apiCreateFile);

@@ -1,10 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const process = require('process');
-const {authenticate} = require('@google-cloud/local-auth');
 const {google} = require('googleapis');
-const constants = require('../constants/googleDriveApi');
-const { file } = require('googleapis/build/src/apis/file');
 const { Stream } = require('stream');
 // If modifying these scopes, delete token.json.
 module.exports = class GoogleService {
@@ -23,7 +19,7 @@ static uploadSingleFile = async (getDriveService,file,filePath) => {
     const fName = file;
     const fPath = filePath;
     //folderId is the id of the folder inside of the gdrive
-    const folderId = '1VZ5shZrzacC4eDTo03C6Z1Wb0PLrARSg';
+    const folderId = '1-4m3FotGJP4qxJUr5xqfdHt7K5HIRPO0';
     const readStream = fs.createReadStream(path.join(fPath,file));
     const bufferStream = new Stream.PassThrough();
     bufferStream.end(readStream.buffer);
