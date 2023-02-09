@@ -13,6 +13,10 @@ router.route('/addFile').post(cors(),fileController.apiCreateFile);
 router.route('/updateFile').post(cors(),fileController.apiUpdateFile);
 router.route('/getFiles').get(cors(),fileController.apiGetFiles);
 router.route('/getJsonFiles').get(cors(),fileController.apiGetJsonFiles);
-router.route('/uploadSingleFile').post(uploadSingle.single('pdf'));
+router.route('/uploadSingleFile').post(uploadSingle.single('pdf'), (req, res) => {
+    console.log("PDF file uploaded successfully.");
+    return res.send("PDF file uploaded successfully.");
+  });
+// router.route('/uploadSingleFile').post(cors(),uploadSingle.apilocalUpload);
 
 module.exports = router;
