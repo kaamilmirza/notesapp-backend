@@ -43,11 +43,25 @@ static uploadSingleFile = async (getDriveService,file,filePath) => {
     if(file.endsWith(".pdf"))
       try{
           fileId = await this.uploadSingleFile(driveService, file, folderPath);
+          if(fileId){ 
+            const fs = require('fs');
+
+          const directory = 'pdfStorage';
+
+          fs.readdir(directory, (err, files) => {
+            if (err) throw err;
+            for (const file of files) {
+              fs.unlink(`${directory}/${file}`, (err) => {
+                if (err) throw err;
+              });
+            }
+          });
         //     if(file.endsWith(".pdf")){
         //     fileId = this.uploadSingleFile(driveService, file, folderPath);
             
         // };
       }
+    }
         catch(error){
           console.log(error);
         }
