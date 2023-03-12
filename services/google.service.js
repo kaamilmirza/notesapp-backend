@@ -44,10 +44,8 @@ static uploadSingleFile = async (getDriveService,file,filePath) => {
       try{
           fileId = await this.uploadSingleFile(driveService, file, folderPath);
           if(fileId){ 
-            const fs = require('fs');
-
+          const fs = require('fs');
           const directory = 'pdfStorage';
-
           fs.readdir(directory, (err, files) => {
             if (err) throw err;
             for (const file of files) {
@@ -72,7 +70,7 @@ static uploadSingleFile = async (getDriveService,file,filePath) => {
         });
       const result = {
         fileId : fileId,
-        webContentLink : wcl["data"]["webViewLink"]
+        webContentLink : wcl["data"]["webContentLink"]
       }
       return result;
   };
