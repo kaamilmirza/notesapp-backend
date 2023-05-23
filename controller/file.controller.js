@@ -5,24 +5,56 @@ module.exports = class FileController {
     try {
       //to upload the files (pdf) to amazon s3
       const file = req.file;
-      const uploadResult = await fileService.uploadfile(req);
+      const uploadResult = await fileService.createFile(req);
       res.status(201).json({
         status: "success",
         data: {
           fileName: file.originalname,
           location: uploadResult.location,
+          mongoFile: uploadResult.mongoFile,
+          fileJson: uploadResult.fileJson,
         },
       });
-      //to create File entry into MongoDB
-      const file_mongo = fileService.createFile(req);
-      const file_app = fileService.createFileJson(file_mongo);
-      res.json({file_mongo, file_app});
-
+      
     } catch (error) {
       res.status(500).json({
         status: "error",
         message: error.message,
       });
+    }
+  }
+  static async apiGetFiles(req, res){
+    try{
+        const files = await fileService.getFileList(req);
+        res.status(201).json({
+            status: "success",
+            data: {
+                files: files
+            }
+        });
+    }
+    catch(error){
+        res.status(500).json({
+            status: "error",
+            message: error.message,
+        });
+    }
+  }
+  static async apiGetJsonFiles(req, res){
+    try{
+        const files = await fileService.getJsonFileList(req);
+        res.status(201).json({
+            status: "success",
+            data: {
+                files: files
+            }
+        });
+    }
+    catch(error){
+        res.status(500).json({
+            status: "error",
+            message: error.message,
+        });
     }
   }
 

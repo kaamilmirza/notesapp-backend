@@ -4,5 +4,5 @@ AWS.config.update({
     credentials : config.amazonConfig,
     region : 'ap-south-1'
 });
-
-module.exports = AWS;
+const s3 = new AWS.S3();
+module.exports = s3;

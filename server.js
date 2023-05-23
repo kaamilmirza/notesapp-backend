@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const routes = require("./routes/routes");
 const dotenv = require('dotenv');
+require("./services/mongo.service");
 dotenv.config();
 
 

@@ -21,7 +21,7 @@ module.exports = {
     host: HOST,
     url: HOST_URL,
 
-    mongoUri : MONGOLAB_URI,
+    mongoURI : MONGOLAB_URI,
 
     secret_sha256 : SECRET_SHA256,
 
