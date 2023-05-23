@@ -31,7 +31,7 @@ module.exports = class fileService {
       const generateFileId = () => Array.from({ length: 6 }, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'[Math.floor(Math.random() * 52)]).join('');
       const fileId = generateFileId();
       if (!fileDoc) {
-        const { g_id, name, year, branch, course, semester, version, unit } =
+        const { g_id, name, year, branch, course, semester, version, unit, author} =
           req.body;
         const newFileDoc = await File.create({
           fileId: fileId,
