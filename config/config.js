@@ -12,6 +12,17 @@ const{
     AWS_ACCESS_KEY_ID,
     AWS_SECRET_ACCESS_KEY,
     AWS_BUCKET_ONE,
+    project_id,
+    type,
+    private_key_id,
+    client_email,
+    private_key,
+    client_id,
+    auth_uri,
+    token_uri,
+    auth_provider_x509_cert_url,
+    client_x509_cert_url,
+    universe_domain
 }
 = process.env;
 
@@ -32,7 +43,7 @@ module.exports = {
 
     amazonBuckets: {
         bucket : AWS_BUCKET_ONE
-    }
+    },
     // firebaseConfig: {
     //     apiKey: API_KEY,
     //     authDomain: AUTH_DOMAIN,
@@ -42,17 +53,17 @@ module.exports = {
     //     messagingSenderId: MESSAGING_SENDER_ID,
     //     appId: APP_ID,
     // },
-    // firebaseServiceAccount: {
-    //     type: type,
-    //     project_id: project_id,
-    //     private_key_id: private_key_id,
-    //     private_key: private_key,
-    //     client_email: client_email,
-    //     client_id: client_id,
-    //     auth_uri: auth_uri,
-    //     token_uri: token_uri,
-    //     auth_provider_x509_cert_url: auth_provider_x509_cert_url,
-    //     client_x509_cert_url: client_x509_cert_url,
-    // },
+    firebaseServiceAccount: {
+        type: type,
+        project_id: project_id,
+        private_key_id: private_key_id,
+        private_key: private_key,
+        client_email: client_email,
+        client_id: client_id,
+        auth_uri: auth_uri,
+        token_uri: token_uri,
+        auth_provider_x509_cert_url: auth_provider_x509_cert_url,
+        client_x509_cert_url: client_x509_cert_url,
+    },
 
 };

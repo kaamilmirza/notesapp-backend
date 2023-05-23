@@ -1,27 +1,24 @@
-const jwt = require('jsonwebtoken');
+const admin = require("../services/firebase.service");
 
-const config = require('../config/config');
+// Middleware function for token validation and server-side validation
+function validateToken(req, res, next) {
+  const idToken = req.headers.authorization;
+  
+  if (!idToken) {
+    return res.status(401).json({ message: 'No token provided' });
+  }
 
-const authenticateMiddleware = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    const token = authHeader.split(' ')[1];
-
-    if(!token){
-        return res.status(401).json({
-            message: 'Auth Failed'
-        });
-    }
-    
-    try{
-        const decoded = jwt.verify(token, config.jwtSecret);
-        req.userData = decoded;
-        next();
-    }catch(error){
-        return res.status(401).json({
-            message: 'Auth Failed'
-        });
-    }
+  // Verify the ID token using the Firebase Admin SDK
+  admin
+    .auth()
+    .verifyIdToken(idToken)
+    .then((decodedToken) => {
+      next();
+    })
+    .catch((error) => {
+      // Invalid token or verification failed
+      return res.status(401).json({ message: 'Invalid token', error: error});
+    });
 }
 
-module.exports = authenticateMiddleware;
-
+module.exports = validateToken;

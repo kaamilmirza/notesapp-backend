@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const user_schema = mongoose.Schema({
-    user_id: {type: String, required: true},
+    uid: {type: String, required: true},
     name: {
         type: String,
         trim: true,
@@ -13,6 +13,10 @@ const user_schema = mongoose.Schema({
         type : String,
         required :true,
     },
+    role: {
+        type: String,
+        required: true
+    }
 });
 
 const File = mongoose.model('users', user_schema);
