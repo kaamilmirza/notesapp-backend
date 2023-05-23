@@ -45,6 +45,7 @@ module.exports = class fileService {
           unit: unit,
           reslink: location,
           createdAt: Date.now(),
+          author: author;
         });
         mongoFileDoc = await newFileDoc;
       }
