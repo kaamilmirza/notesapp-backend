@@ -23,6 +23,7 @@ module.exports = class FileController {
       });
     }
   }
+
   static async apiGetFiles(req, res){
     try{
         const files = await fileService.getFileList(req);
@@ -40,6 +41,7 @@ module.exports = class FileController {
         });
     }
   }
+
   static async apiGetJsonFiles(req, res){
     try{
         const files = await fileService.getJsonFileList(req);
@@ -58,6 +60,35 @@ module.exports = class FileController {
     }
   }
 
-
-
-};
+  static async apiTrending(req, res, next){
+    try{
+      const trending = await fileService.addTrending(req);
+      res.status(201).json({
+        status: "success",
+        data: {
+            trending: trending
+        }
+    });
+    }
+    catch(error){
+        res.status(500).json({
+            status: "error",
+            message: error.message,
+        });
+        }
+    }
+    
+  static async apigetTrending(req, res, next){
+    try{
+      const trending = await fileService.getTrending();
+      res.status(201).json({
+        status: "success",
+        data: {
+            trending: trending
+        }
+      });
+    }catch(error){
+    throw error;
+    }
+  }
+}

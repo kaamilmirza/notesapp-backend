@@ -3,6 +3,7 @@ const config = require("../config/config");
 const File = require("../models/file.model");
 const FileJson = require("../models/courses.model");
 const fs = require("fs");
+const FileAccess = require("../models/trending.model");
 
 module.exports = class fileService {
   //create a file (upload to s3 and mongodb)
@@ -97,6 +98,19 @@ module.exports = class fileService {
     }
     catch(error){
         throw error;
+    }
+  }
+  static async getTrending(){
+    try{
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+    const mostAccessedFiles = await FileAccess.find({ lastAccessedAt: { $gte: oneHourAgo } })
+      .sort({ accessCount: -1 })
+      .limit(10)
+      .select('fileId accessCount');
+      
+    return mostAccessedFiles;
+    }catch(error){
+      throw error;
     }
   }
 };
