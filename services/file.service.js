@@ -99,7 +99,7 @@ module.exports = class fileService {
   }
   static async getFileList() {
     try {
-      const files = await File.find().lean();
+      const files = await File.find().lean().sort({ createdAt: -1 });
       return files;
     } catch (error) {
       throw error;
