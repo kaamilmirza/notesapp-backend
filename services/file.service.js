@@ -48,6 +48,7 @@ module.exports = class fileService {
           version,
           unit,
           author,
+          authorId,
         } = req.body;
         const newFileDoc = await File.create({
           fileId: fileId,
@@ -61,6 +62,7 @@ module.exports = class fileService {
           reslink: location,
           createdAt: Date.now(),
           author: author,
+          authorId: authorId
         });
         mongoFileDoc = await newFileDoc;
       }

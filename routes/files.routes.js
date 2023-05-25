@@ -6,7 +6,7 @@ const verify = require("../middleware/jwt");
 const fileController = require("../controller/file.controller");
 router.route('/addFile').post(upload.single('pdf'), fileController.apiUploadFiles);
 router.route('/getFiles').get(verify,fileController.apiGetFiles);
-router.route('/getJsonFiles').get(verify, fileController.apiGetJsonFiles);
+router.route('/getJsonFiles').get(fileController.apiGetJsonFiles);
 router.route('/trending').post(verify, fileController.apiTrending);
 router.route('/getTrending').get(fileController.apigetTrending);
 module.exports = router;

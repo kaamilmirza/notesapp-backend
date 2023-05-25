@@ -31,6 +31,11 @@ const file_schema = mongoose.Schema({
         type: String,
         trim: true,
         required: true,
+    },
+    authorId: {
+        type: String,
+        trim: true,
+        required: true,
     }
 });
 
