@@ -29,14 +29,29 @@ module.exports = class fileService {
       const fileDoc = await File.findOne({
         reslink: location,
       }).lean();
-      const generateFileId = () => Array.from({ length: 6 }, () => 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'[Math.floor(Math.random() * 52)]).join('');
+      const generateFileId = () =>
+        Array.from(
+          { length: 6 },
+          () =>
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"[
+              Math.floor(Math.random() * 52)
+            ]
+        ).join("");
       const fileId = generateFileId();
       if (!fileDoc) {
-        const { g_id, name, year, branch, course, semester, version, unit, author} =
-          req.body;
+        const {
+          g_id,
+          name,
+          year,
+          branch,
+          course,
+          semester,
+          version,
+          unit,
+          author,
+        } = req.body;
         const newFileDoc = await File.create({
           fileId: fileId,
-          g_id: g_id,
           name: name,
           year: year,
           branch: branch,
@@ -46,7 +61,7 @@ module.exports = class fileService {
           unit: unit,
           reslink: location,
           createdAt: Date.now(),
-          author: author
+          author: author,
         });
         mongoFileDoc = await newFileDoc;
       }
@@ -57,7 +72,7 @@ module.exports = class fileService {
         const newFileDoc = await FileJson.create({
           cid: (1000 + Math.random() * 9000).toFixed(0),
           cname: req.body.course,
-          gid: [req.body.g_id],
+          fileId: [fileId],
         });
         mongoFileJson = newFileDoc;
       } else {
@@ -65,13 +80,12 @@ module.exports = class fileService {
           { cname: req.body.course },
           {
             $push: {
-              g_id: req.body.g_id.toString(),
+              fileId: fileId,
             },
-          },
+          }
         );
         mongoFileJson = updated;
       }
-      console.log(fileDoc);
       return {
         fileName: fileExt.originalname,
         location: location,
@@ -82,34 +96,34 @@ module.exports = class fileService {
       throw error;
     }
   }
-  static async getFileList(){
-    try{
-        const files = await File.find().lean();
-        return files;
-    }
-    catch(error){
-        throw error;
-    }
-  }
-  static async getJsonFileList(){
-    try{
-        const files = await FileJson.find();
-        return files;
-    }
-    catch(error){
-        throw error;
+  static async getFileList() {
+    try {
+      const files = await File.find().lean();
+      return files;
+    } catch (error) {
+      throw error;
     }
   }
-  static async getTrending(){
-    try{
-    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
-    const mostAccessedFiles = await FileAccess.find({ lastAccessedAt: { $gte: oneHourAgo } })
-      .sort({ accessCount: -1 })
-      .limit(10)
-      .select('fileId accessCount');
-      
-    return mostAccessedFiles;
-    }catch(error){
+  static async getJsonFileList() {
+    try {
+      const files = await FileJson.find();
+      return files;
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async getTrending() {
+    try {
+      const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+      const mostAccessedFiles = await FileAccess.find({
+        lastAccessedAt: { $gte: oneHourAgo },
+      })
+        .sort({ accessCount: -1 })
+        .limit(10)
+        .select("fileId accessCount");
+
+      return mostAccessedFiles;
+    } catch (error) {
       throw error;
     }
   }

@@ -1,10 +1,5 @@
 const mongoose = require('mongoose');
 const file_schema = mongoose.Schema({
-    g_id : {
-        type: String,
-        trim: true,
-        required: true,
-    },
     name: {
         type: String,
         trim: true,

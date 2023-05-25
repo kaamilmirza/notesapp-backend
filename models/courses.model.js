@@ -4,7 +4,7 @@ const file_schema = mongoose.Schema({
     cname: {
         type: String,
       },
-    gid: {
+    fileId: {
         type: Array,
         trim: true,
         unique: true,
