@@ -40,7 +40,6 @@ module.exports = class fileService {
       const fileId = generateFileId();
       if (!fileDoc) {
         const {
-          g_id,
           name,
           year,
           branch,
@@ -126,5 +125,13 @@ module.exports = class fileService {
     } catch (error) {
       throw error;
     }
+  }
+  static async updateTrending(){
+    try{
+    
+    }
+    catch(error){
+      throw error;
+  }
   }
 };
