@@ -5,9 +5,10 @@ const dotenv = require('dotenv');
 require("./services/firebase.service");
 require("./services/mongo.service");
 dotenv.config();
-
-
+const bodyParser = require('body-parser');
 const app = express();
+
+app.use(bodyParser.json());
 
 app.use(routes);
 

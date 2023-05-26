@@ -4,6 +4,7 @@ const File = require("../models/file.model");
 const FileJson = require("../models/courses.model");
 const fs = require("fs");
 const FileAccess = require("../models/trending.model");
+const trending = require("../models/trending.model");
 
 module.exports = class fileService {
   //create a file (upload to s3 and mongodb)
@@ -62,7 +63,7 @@ module.exports = class fileService {
           reslink: location,
           createdAt: Date.now(),
           author: author,
-          authorId: authorId
+          authorId: authorId,
         });
         mongoFileDoc = await newFileDoc;
       }
@@ -113,27 +114,31 @@ module.exports = class fileService {
       throw error;
     }
   }
-  static async getTrending() {
-    try {
-      const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
-      const mostAccessedFiles = await FileAccess.find({
-        lastAccessedAt: { $gte: oneHourAgo },
-      })
-        .sort({ accessCount: -1 })
-        .limit(10)
-        .select("fileId accessCount");
 
-      return mostAccessedFiles;
+  static async updateTrending(req) {
+    try {
+      const addData = await trending.insertMany(req.body);
+      return addData;
     } catch (error) {
       throw error;
     }
   }
-  static async updateTrending(){
+  static async getTrendingWeekly(){
     try{
-    
+      const mostAccessedWeekly = await trending.find().lean().sort({ accessedweekly: -1 }).limit(10).toArray();
+      return mostAccessedWeekly;
     }
     catch(error){
       throw error;
+    }
   }
+  static async getTrendingDay(){
+    try{
+      const mostAccessedDaily = await trending.find().lean().sort({ accesstoday: -1 }).limit(10).toArray();
+      return mostAccessedDaily;
+    }
+    catch(error){
+      throw error;
+    }
   }
 };

@@ -6,13 +6,13 @@ const FileAccessSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  accessCount: {
+  accessToday: {
     type: Number,
     default: 0
   },
-  lastAccessedAt: {
+  accessWeekly: {
     type: Date,
-    default: Date.now
+    default: 0
   }
 });
 
