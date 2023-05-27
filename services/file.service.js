@@ -145,8 +145,7 @@ module.exports = class fileService {
         .find()
         .lean()
         .sort({ accesstoday: -1 })
-        .limit(10)
-        .toArray();
+        .limit(10);
       return mostAccessedDaily;
     } catch (error) {
       throw error;
