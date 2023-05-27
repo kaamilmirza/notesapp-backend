@@ -110,7 +110,7 @@ module.exports = class fileService {
 
   static async getJsonFileList() {
     try {
-      const files = await FileJson.find();
+      const files = await FileJson.find().lean();
       return files;
     } catch (error) {
       throw error;
