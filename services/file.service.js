@@ -98,6 +98,7 @@ module.exports = class fileService {
       throw error;
     }
   }
+
   static async getFileList() {
     try {
       const files = await File.find().lean().sort({ createdAt: -1 });
@@ -106,6 +107,7 @@ module.exports = class fileService {
       throw error;
     }
   }
+
   static async getJsonFileList() {
     try {
       const files = await FileJson.find();
@@ -123,21 +125,30 @@ module.exports = class fileService {
       throw error;
     }
   }
-  static async getTrendingWeekly(){
-    try{
-      const mostAccessedWeekly = await trending.find().lean().sort({ accessedweekly: -1 }).limit(10).toArray();
+
+  static async getTrendingWeekly() {
+    try {
+      const mostAccessedWeekly = await trending
+        .find()
+        .lean()
+        .sort({ accessedweekly: -1 })
+        .limit(10);
       return mostAccessedWeekly;
-    }
-    catch(error){
+    } catch (error) {
       throw error;
     }
   }
-  static async getTrendingDay(){
-    try{
-      const mostAccessedDaily = await trending.find().lean().sort({ accesstoday: -1 }).limit(10).toArray();
+
+  static async getTrendingDay() {
+    try {
+      const mostAccessedDaily = await trending
+        .find()
+        .lean()
+        .sort({ accesstoday: -1 })
+        .limit(10)
+        .toArray();
       return mostAccessedDaily;
-    }
-    catch(error){
+    } catch (error) {
       throw error;
     }
   }
