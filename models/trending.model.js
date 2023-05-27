@@ -6,14 +6,7 @@ const FileAccessSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  accessToday: {
-    type: Number,
-    default: 0
-  },
-  accessWeekly: {
-    type: Date,
-    default: 0
-  }
+  
 });
 
 const FileAccess = mongoose.model('FileAccess', FileAccessSchema);

@@ -119,8 +119,26 @@ module.exports = class fileService {
 
   static async updateTrending(req) {
     try {
-      const addData = await trending.insertMany(req.body);
-      return addData;
+      const bulkUpdateOps = req.body.map(
+        ({ fileId, accessToday, accessWeekly }) => ({
+          updateOne: {
+            filter: { fileId: fileId },
+            update: {
+              $set: {
+                accessToday: accessToday,
+                accessWeekly: accessWeekly,
+              },
+            },
+          },
+        })
+      );
+      const addData = File.bulkWrite(bulkUpdateOps)
+        .then((result) => {
+          return result;
+        })
+        .catch((error) => {
+          throw error;
+        });
     } catch (error) {
       throw error;
     }
@@ -128,10 +146,9 @@ module.exports = class fileService {
 
   static async getTrendingWeekly() {
     try {
-      const mostAccessedWeekly = await trending
-        .find()
+      const mostAccessedWeekly = await File.find()
         .lean()
-        .sort({ accessedweekly: -1 })
+        .sort({ accessWeekly: -1 })
         .limit(10);
       return mostAccessedWeekly;
     } catch (error) {
@@ -141,10 +158,9 @@ module.exports = class fileService {
 
   static async getTrendingDay() {
     try {
-      const mostAccessedDaily = await trending
-        .find()
+      const mostAccessedDaily = await File.find()
         .lean()
-        .sort({ accesstoday: -1 })
+        .sort({ accessToday: -1 })
         .limit(10);
       return mostAccessedDaily;
     } catch (error) {

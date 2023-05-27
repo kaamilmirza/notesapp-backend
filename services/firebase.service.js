@@ -1,18 +1,19 @@
-const admin = require('firebase-admin');
+const admin = require("firebase-admin");
 const config = require("../config/config");
-const axios = require('axios');
+const axios = require("axios");
 // Initialize Firebase Admin SDK
 admin.initializeApp({
-  credential: admin.credential.cert(config.firebaseServiceAccount)});
+  credential: admin.credential.cert(config.firebaseServiceAccount),
+});
 
 const db = admin.firestore();
 
 // Check if Firestore is initialized
 if (db) {
-console.log('Firebase Admin initialized successfully.');
-// Perform additional operations using Firestore or other Firebase services
+  console.log("Firebase Admin initialized successfully.");
+  // Perform additional operations using Firestore or other Firebase services
 } else {
-console.log('Firebase Admin initialization failed.');
+  console.log("Firebase Admin initialization failed.");
 }
 
 //TO TEST AUTH TOKENS
@@ -37,4 +38,3 @@ console.log('Firebase Admin initialization failed.');
 //   });
 
 module.exports = admin;
-
