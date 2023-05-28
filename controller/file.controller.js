@@ -84,7 +84,10 @@ module.exports = class FileController {
         },
       });
     } catch (error) {
-      throw error;
+      res.status(500).json({
+        status: "error",
+        message: error.message,
+      });
     }
   }
 
@@ -99,6 +102,23 @@ module.exports = class FileController {
       });
     } catch (error) {
       throw error;
+    }
+  }
+
+  static async apiCreateNewCourse(req, res, next) {
+    try {
+      const course = await fileService.addNewCourse(req);
+      res.status(201).json({
+        status: "success",
+        data: {
+          course: course,
+        },
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: "error",
+        message: error.message,
+      });
     }
   }
 };

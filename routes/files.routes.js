@@ -10,5 +10,6 @@ router.route('/getJsonFiles').get(fileController.apiGetJsonFiles);
 router.route('/trending').post(fileController.apiUpdateTrending);
 router.route('/getTrendingDay').get(fileController.apigetTrendingDay);
 router.route('/getTrendingWeek').get(fileController.apigetTrendingWeekly);
+router.route('/newCourse').post(fileController.apiCreateNewCourse);
 
 module.exports = router;

@@ -119,7 +119,7 @@ module.exports = class fileService {
 
   static async updateTrending(req) {
     try {
-      const bulkUpdateOps = req.body.map(
+      const bulkUpdateOps = req.body['key'].map(
         ({ fileId, accessToday, accessWeekly }) => ({
           updateOne: {
             filter: { fileId: fileId },
@@ -139,6 +139,7 @@ module.exports = class fileService {
         .catch((error) => {
           throw error;
         });
+      return addData;
     } catch (error) {
       throw error;
     }
@@ -163,6 +164,36 @@ module.exports = class fileService {
         .sort({ accessToday: -1 })
         .limit(10);
       return mostAccessedDaily;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async addNewCourse(req) {
+    try {      
+      const { cname } = req.body;
+      //validate course name
+      if (!cname) {
+        throw new Error("Course name is required");
+      }
+      //uniquely generate cid
+      const cid = (1000 + Math.random() * 9000).toFixed(0);
+      //check if cid already exists
+      const check = await FileJson.findOne({ cid: cid }).lean();
+      if (check) {
+        cid = (1000 + Math.random() * 9000).toFixed(0);
+      }
+      //check if cname already exists
+      const checkCname = await FileJson.findOne({ cname: cname }).lean();
+      if (checkCname) {
+        throw new Error("Course name already exists");
+      }
+      //create new course
+      const newCourse = await FileJson.create({
+        cname: cname,
+        cid: cid,
+      });
+      return newCourse;
     } catch (error) {
       throw error;
     }
