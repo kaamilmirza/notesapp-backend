@@ -16,25 +16,25 @@ if (db) {
   console.log("Firebase Admin initialization failed.");
 }
 
-//TO TEST AUTH TOKENS
-//const uid = process.env.TEST_UID;
-// admin
-//   .auth()
-//   .createCustomToken(uid)
-//   .then((customToken) => {
-//     const apiUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${process.env.WEB_API_KEY}`;
-//     const requestData = {
-//       token: customToken,
-//       returnSecureToken: true
-//     };
-//     return axios.post(apiUrl, requestData);
-//   })
-//   .then((response) => {
-//     const idToken = response.data.idToken;
-//     console.log('ID token:', idToken);
-//   })
-//   .catch((error) => {
-//     console.error('Error obtaining ID token:', error);
-//   });
+// TO TEST AUTH TOKENS
+const uid = process.env.TEST_UID;
+admin
+  .auth()
+  .createCustomToken(uid)
+  .then((customToken) => {
+    const apiUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${process.env.WEB_API_KEY}`;
+    const requestData = {
+      token: customToken,
+      returnSecureToken: true
+    };
+    return axios.post(apiUrl, requestData);
+  })
+  .then((response) => {
+    const idToken = response.data.idToken;
+    console.log('ID token:', idToken);
+  })
+  .catch((error) => {
+    console.error('Error obtaining ID token:', error);
+  });
 
 module.exports = admin;
