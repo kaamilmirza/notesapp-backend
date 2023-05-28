@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 require("./services/firebase.service");
 require("./services/mongo.service");
 require("./services/socket.service");
+require("./services/trending-cron");
 dotenv.config();
 const bodyParser = require('body-parser');
 const app = express();

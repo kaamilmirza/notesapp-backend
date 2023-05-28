@@ -119,27 +119,15 @@ module.exports = class fileService {
 
   static async updateTrending(req) {
     try {
-      const bulkUpdateOps = req.body['key'].map(
-        ({ fileId, accessToday, accessWeekly }) => ({
-          updateOne: {
-            filter: { fileId: fileId },
-            update: {
-              $set: {
-                accessToday: accessToday,
-                accessWeekly: accessWeekly,
-              },
-            },
-          },
-        })
-      );
-      const addData = File.bulkWrite(bulkUpdateOps)
-        .then((result) => {
-          return result;
-        })
-        .catch((error) => {
-          throw error;
-        });
-      return addData;
+      const updates = req.body['key'].map(async (item) => {
+        const { fileId, accessToday, accessWeekly } = item;
+        await File.updateOne(
+          { fileId: fileId },
+          { $set: { accessToday: accessToday, accessWeekly: accessWeekly } }
+        );
+      });
+      const results = await Promise.all(updates);      
+      return results;
     } catch (error) {
       throw error;
     }
