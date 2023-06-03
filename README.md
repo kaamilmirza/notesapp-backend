@@ -69,7 +69,7 @@ We believe in fostering a supportive and collaborative open-source community. If
 
 ## Code of Conduct
 
-We expect all contributors to adhere to our [Code of Conduct](./CODE_OF_CONDUCT.md) when participating in this project. It ensures a respectful and inclusive environment for everyone involved.
+We expect all contributors to adhere to our [Code of Conduct](https://github.com/probot/template/blob/master/CODE_OF_CONDUCT.md) when participating in this project. It ensures a respectful and inclusive environment for everyone involved.
 
 ## License
 
